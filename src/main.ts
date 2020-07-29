@@ -70,7 +70,11 @@ async function run() {
     const issueNumbers = await getIssueNumbers(octokit, searchQuery)
 
     await closeIssues(octokit, issueNumbers)
+
+    core.setOutput('num', `${issueNumbers.length}`);
+    core.info(`issues: ${issueNumbers}`);
   } catch (error) {
+    core.setOutput('num', '0');
     core.setFailed(error.message)
   }
 }
